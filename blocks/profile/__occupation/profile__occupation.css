@@ -6,3 +6,12 @@
     margin: 0;
     grid-area: occupation;
 }
+
+@media screen and (max-width: 767px) {
+    .profile__occupation {
+        text-align: center;
+        font-size: 14px;
+        line-height: 17px;
+    }
+    
+}
