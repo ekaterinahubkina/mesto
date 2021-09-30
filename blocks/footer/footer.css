@@ -1,30 +1,27 @@
-.elements {
+.footer {
     width: calc(100% - 2*200px);
+    margin: 67px auto 0;
+    padding-bottom: 60px;
     max-width: 880px;
-    margin: 51px auto 0;
-    /*display: flex;
-    justify-content: center;*/
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
-    grid-column-gap: 17px;
-    grid-row-gap: 20px;
+
 }
 
 @media screen and (max-width: 1279px) {
-    .elements {
+    .footer {
         width: calc(100% - 2*150px);
     } 
 }
 
 @media screen and (max-width: 1023px) {
-    .elements {
+    .footer {
         width: calc(100% - 2*100px);
     } 
 }
 
 @media screen and (max-width: 767px) {
-    .elements {
+    .footer {
         width: calc(100% - 2*19px);
-        margin-top: 36px;
+        margin-top: 48px;
+        padding-bottom: 36px;
     } 
 }
