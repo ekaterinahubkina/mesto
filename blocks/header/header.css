@@ -4,8 +4,8 @@
     margin: auto;
     padding-top: 45px;
     min-height: 74px;
-    outline: 1px solid red;
 }
+
 @media screen and (max-width: 1279px) {
     .header {
         width: calc(100% - 2*150px);

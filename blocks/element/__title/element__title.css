@@ -5,7 +5,4 @@
     color: #000000;
     grid-area: title;
     margin: 0 0 0 21px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 }

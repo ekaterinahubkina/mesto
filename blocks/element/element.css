@@ -11,4 +11,7 @@
     max-width: 282px;
     min-height: 361px;
     margin: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
