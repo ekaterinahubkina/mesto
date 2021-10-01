@@ -13,5 +13,5 @@
 * HTML, CSS, JavaScript
 
 ## Результат  
-[Ссылка на проект на GitHub Pages]()
+[Ссылка на проект на GitHub Pages](https://ekaterinahubkina.github.io/mesto/index.html)
 
