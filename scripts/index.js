@@ -30,14 +30,3 @@ function submitForm(event) {
     closePopup();
 }
 form.addEventListener('submit', submitForm);
-
-//like-button_active
-
-// const likeButton = document.querySelectorAll('.element__like-button');
-// console.log(likeButton);
-
-// likeButton.forEach(function(elem) {
-//     elem.addEventListener('click', function(){
-//         this.classList.add('element__like-button_active');
-//     })
-// });
