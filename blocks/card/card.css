@@ -1,4 +1,4 @@
-.element {
+.card {
     display: grid;
     grid-template-columns: repeat(2, max-content);
     grid-template-rows: repeat(2, max-content);
@@ -10,5 +10,6 @@
     border-radius: 10px;
     max-width: 282px;
     min-height: 361px;
-    margin: auto; 
+    margin: auto;
+    position: relative;
 }
