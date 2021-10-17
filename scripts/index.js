@@ -1,9 +1,9 @@
 const popupEdit = document.querySelector('.popup_type_edit');
-const popupAdd = document.querySelector('.popup_type_add'); // добавили новый попап новое место
+const popupAdd = document.querySelector('.popup_type_add');
 const popupCloseButtonEdit = document.querySelector('.popup__close-button_type_edit');
 const popupCloseButtonAdd = document.querySelector('.popup__close-button_type_add');
 const editButton = document.querySelector('.profile__edit-button');
-const addButton = document.querySelector('.profile__add-button'); //добавили кнопку добавить
+const addButton = document.querySelector('.profile__add-button'); 
 
 
 const formAdd = document.querySelector('.form_type_add');
@@ -33,7 +33,7 @@ popupCloseButtonEdit.addEventListener('click', (event) => {
 
 addButton.addEventListener('click', (event) => {
     openPopup(popupAdd);
-}); //открытие поп-апа по нажатию на кнопку добавить
+}); 
 
 popupCloseButtonAdd.addEventListener('click', (event) => {
     closePopup(popupAdd);
@@ -79,8 +79,8 @@ const initialCards = [
     }
   ];
 
-const cardsSection = document.querySelector('.cards'); // добавили секцию Cards
-const templateItem = document.querySelector('.template').content; // добавили template
+const cardsSection = document.querySelector('.cards');
+const templateItem = document.querySelector('.template').content; 
 
 initialCards.forEach(addCard); 
 
@@ -96,6 +96,20 @@ function createCard(item) {
   const likeButton = card.querySelector('.card__like-button');
   likeButton.addEventListener('click', (event) => {
     likeButton.classList.toggle('card__like-button_active');
+  });
+  const popupPic = document.querySelector('.popup_type_picture');
+  const cardImg = card.querySelector('.card__image');
+  const popupImg = document.querySelector('.popup__image');
+  let popupCaption = document.querySelector('.popup__figcaption');
+  const popupCloseButtonPic = document.querySelector('.popup__close-button_type_pic');
+  cardImg.addEventListener('click', (event) =>{
+    openPopup(popupPic);
+    popupImg.src = item.link;
+    popupCaption.innerText = item.name;
+
+  });
+  popupCloseButtonPic.addEventListener('click', (event) =>{
+    closePopup(popupPic);
   });
   return card;
 };
@@ -118,3 +132,8 @@ function addCardSubmit(event) {
   closePopup(popupAdd);
 }
 formAdd.addEventListener('submit', addCardSubmit);
+
+//анимация попапов
+window.addEventListener('load', ()=>{
+  document.querySelectorAll('.popup').forEach((popup) => popup.classList.add('popup_transition'))
+});
