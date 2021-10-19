@@ -16,6 +16,9 @@ const inputName = document.querySelector('.form__input_type_name');
 const profileOccupation = document.querySelector('.profile__occupation');
 const inputOccupation = document.querySelector('.form__input_type_occupation');
 
+inputName.value = profileName.textContent;
+inputOccupation.value = profileOccupation.textContent;
+
 function openPopup(popup) {
     popup.classList.add('popup_opened')
 };
@@ -29,6 +32,8 @@ editButton.addEventListener('click', (event) => {
 });
 popupCloseButtonEdit.addEventListener('click', (event) => {
     closePopup(popupEdit);
+    inputName.value = profileName.textContent;
+    inputOccupation.value = profileOccupation.textContent;
 });
 
 addButton.addEventListener('click', (event) => {
@@ -37,10 +42,8 @@ addButton.addEventListener('click', (event) => {
 
 popupCloseButtonAdd.addEventListener('click', (event) => {
     closePopup(popupAdd);
+    formAdd.reset();
 });
-
-inputName.value = profileName.textContent;
-inputOccupation.value = profileOccupation.textContent;
 
 function submitForm(event) {
     event.preventDefault()
@@ -88,6 +91,7 @@ function createCard(item) {
 
   const card = templateItem.querySelector('.card').cloneNode(true);
   card.querySelector('.card__title').innerText = item.name;
+  card.querySelector('.card__image').alt = item.name;
   card.querySelector('.card__image').src = item.link;
   const deleteButton = card.querySelector('.card__delete-button');
   deleteButton.addEventListener('click', (event) =>{
@@ -100,13 +104,13 @@ function createCard(item) {
   const popupPic = document.querySelector('.popup_type_picture');
   const cardImg = card.querySelector('.card__image');
   const popupImg = document.querySelector('.popup__image');
-  let popupCaption = document.querySelector('.popup__figcaption');
+  const popupCaption = document.querySelector('.popup__figcaption');
   const popupCloseButtonPic = document.querySelector('.popup__close-button_type_pic');
   cardImg.addEventListener('click', (event) =>{
     openPopup(popupPic);
     popupImg.src = item.link;
     popupCaption.innerText = item.name;
-
+    popupImg.alt = item.name;
   });
   popupCloseButtonPic.addEventListener('click', (event) =>{
     closePopup(popupPic);
