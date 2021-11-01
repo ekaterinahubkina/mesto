@@ -53,8 +53,10 @@ function toggleButtonState(form, config){
     const button = form.querySelector(config.submitButtonSelector);
     if(!form.checkValidity()){
         button.classList.add(config.inactiveButtonClass);
+        button.setAttribute('disabled', true);
     } else {
         button.classList.remove(config.inactiveButtonClass);
+        button.removeAttribute('disabled');
     }
 }
 enableValidation(validationConfig);

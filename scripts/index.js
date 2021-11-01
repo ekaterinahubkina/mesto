@@ -29,21 +29,48 @@ function closePopup(popup) {
 
 editButton.addEventListener('click', (event) => {
     openPopup(popupEdit);
+    document.addEventListener('keydown', keyEscHandler);
+    document.addEventListener('mouseup', overlayClickHandler);
 });
 popupCloseButtonEdit.addEventListener('click', (event) => {
     closePopup(popupEdit);
     inputName.value = profileName.textContent;
     inputOccupation.value = profileOccupation.textContent;
+    document.removeEventListener('keydown', keyEscHandler);
+    document.removeEventListener('mouseup', overlayClickHandler);
 });
 
 addButton.addEventListener('click', (event) => {
     openPopup(popupAdd);
+    document.addEventListener('keydown', keyEscHandler);
+    document.addEventListener('mouseup', overlayClickHandler);
 }); 
 
 popupCloseButtonAdd.addEventListener('click', (event) => {
     closePopup(popupAdd);
     formAdd.reset();
+    document.removeEventListener('keydown', keyEscHandler);
+    document.removeEventListener('mouseup', overlayClickHandler);
 });
+// функция закрытия попапа по нажатиюна esc
+function keyEscHandler (event){
+    if(event.key === 'Escape'){
+        const popups = Array.from(document.querySelectorAll('.popup'));
+        popups.forEach(function (popup){
+            closePopup(popup);
+        });
+    }
+}
+
+// функция закрытия попапа нажатием на оверлей
+function overlayClickHandler (event){
+    if (event.target.classList.contains('popup')){
+        const popups = Array.from(document.querySelectorAll('.popup'));
+        popups.forEach(function (popup){
+            closePopup(popup);
+        });
+    }
+}
 
 function submitForm(event) {
     event.preventDefault()
@@ -111,9 +138,13 @@ function createCard(item) {
     popupImg.src = item.link;
     popupCaption.innerText = item.name;
     popupImg.alt = item.name;
+    document.addEventListener('keydown', keyEscHandler);
+    document.addEventListener('mouseup', overlayClickHandler);
   });
   popupCloseButtonPic.addEventListener('click', (event) =>{
     closePopup(popupPic);
+    document.removeEventListener('keydown', keyEscHandler);
+    document.removeEventListener('mouseup', overlayClickHandler);
   });
   return card;
 };
