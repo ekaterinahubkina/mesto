@@ -21,7 +21,12 @@ const popupImg = document.querySelector('.popup__image');
 const popupCaption = document.querySelector('.popup__figcaption');
 const popupCloseButtonPic = document.querySelector('.popup__close-button_type_pic');
 
-
+const errorsEdit = Array.from(formEdit.querySelectorAll('.form__error_type_edit'));
+const inputsEdit = Array.from(formEdit.querySelectorAll('.form__input_edit'));
+const editPopupSubmitButton = formEdit.querySelector('.form__button');
+const errorsAdd = Array.from(formAdd.querySelectorAll('.form__error_type_add'));
+const inputsAdd = Array.from(formAdd.querySelectorAll('.form__input_add'));
+const addPopupSubmitButton = formAdd.querySelector('.form__button');
 
 function openPopup(popup) {
     popup.classList.add('popup_opened');
@@ -31,22 +36,21 @@ function openPopup(popup) {
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
     document.removeEventListener('keydown', keyEscHandler);
-    document.removeEventListener('click', overlayClickHandler);
    }
 
 editButton.addEventListener('click', (event) => {
     openPopup(popupEdit);
     inputName.value = profileName.textContent;
     inputOccupation.value = profileOccupation.textContent;
-    const errorsEdit = Array.from(formEdit.querySelectorAll('.form__error_type_edit'));
+
     errorsEdit.forEach(function (error) {
         error.textContent = '';
     })
-    const inputsEdit = Array.from(formEdit.querySelectorAll('.form__input_edit'));
+
     inputsEdit.forEach(function (input) {
         input.classList.remove('form__input_type_error');
     })
-    const editPopupSubmitButton = formEdit.querySelector('.form__button');
+
     editPopupSubmitButton.removeAttribute('disabled');
     editPopupSubmitButton.classList.remove('form__button_disabled');
     });
@@ -59,16 +63,16 @@ popupCloseButtonEdit.addEventListener('click', (event) => {
 
 addButton.addEventListener('click', (event) => {
     openPopup(popupAdd);
-    const errorsAdd = Array.from(formAdd.querySelectorAll('.form__error_type_add'));
+
     errorsAdd.forEach(function (error) {
         error.textContent = '';
     });
-    const inputsAdd = Array.from(formAdd.querySelectorAll('.form__input_add'));
+
     inputsAdd.forEach(function (input) {
         input.classList.remove('form__input_type_error');
     });
     formAdd.reset();
-    const addPopupSubmitButton = formAdd.querySelector('.form__button');
+
     addPopupSubmitButton.classList.add('form__button_disabled')
     addPopupSubmitButton.setAttribute('disabled', true);
 }); 
