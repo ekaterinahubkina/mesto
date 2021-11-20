@@ -1,4 +1,5 @@
-import {Card} from './card.js';
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
 
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
@@ -145,45 +146,6 @@ function addCard(item) {
 
     cardsSection.prepend(cardElement);
 }
-// const templateItem = document.querySelector('.template').content;
-//
-// initialCards.forEach(addCard);
-
-// function createCard(item) {
-//
-//   const card = templateItem.querySelector('.card').cloneNode(true);
-//   const cardImg = card.querySelector('.card__image');
-//   card.querySelector('.card__title').innerText = item.name;
-//   cardImg.alt = item.name;
-//   cardImg.src = item.link;
-//   const deleteButton = card.querySelector('.card__delete-button');
-//
-//   deleteButton.addEventListener('click', (event) =>{
-//     event.target.closest('.card').remove();
-//   });
-//
-//   const likeButton = card.querySelector('.card__like-button');
-//   likeButton.addEventListener('click', (event) => {
-//     likeButton.classList.toggle('card__like-button_active');
-//   });
-//
-//   cardImg.addEventListener('click', (event) =>{
-//     openPopup(popupPic);
-//     popupImg.src = item.link;
-//     popupCaption.innerText = item.name;
-//     popupImg.alt = item.name;
-//   });
-//   return card;
-// }
-//
-// popupCloseButtonPic.addEventListener('click', (event) =>{
-//     closePopup(popupPic);
-// });
-//
-// function addCard(item) {
-//   const card = createCard(item);
-//   cardsSection.prepend(card);
-// }
 
 function addCardSubmit(event) {
   event.preventDefault();
@@ -207,3 +169,20 @@ popupPic.addEventListener('click', overlayClickHandler);
 window.addEventListener('load', ()=>{
   document.querySelectorAll('.popup').forEach((popup) => popup.classList.add('popup_transition'))
 });
+
+//валидация
+
+const validationConfig = {
+    formSelector: '.form',
+    inputSelector: '.form__input',
+    submitButtonSelector: '.form__button',
+    inactiveButtonClass: 'form__button_disabled',
+    inputErrorClass: 'form__input_type_error',
+    errorClass: 'form__error_visible'
+}
+
+const FormEditValidator = new FormValidator(validationConfig, formEdit);
+FormEditValidator.enableValidation();
+
+const FormAddValidator = new FormValidator(validationConfig, formAdd);
+FormAddValidator.enableValidation();

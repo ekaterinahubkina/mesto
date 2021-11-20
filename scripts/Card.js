@@ -2,9 +2,9 @@ import {keyEscHandler} from './index.js';
 const popupPic = document.querySelector('.popup_type_picture');
 const popupImg = popupPic.querySelector('.popup__image');
 const popupCaption = popupPic.querySelector('.popup__figcaption');
-const popupCloseButtonPic = document.querySelector('.popup__close-button_type_pic');
+const popupCloseButtonPic = popupPic.querySelector('.popup__close-button_type_pic');
 
-export class Card {
+class Card {
     constructor(data, selector) {
         this._name = data.name;
         this._image = data.link;
@@ -75,3 +75,5 @@ _handleClosePopup() {
 }
 
 }
+
+export default Card;
