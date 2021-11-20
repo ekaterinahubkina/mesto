@@ -37,11 +37,11 @@
                 <div class="popup__container">
                     <button class="popup__close-button popup__close-button_type_edit" type="button" aria-label="Закрыть"></button>
                     <h3 class="popup__title">Редактировать профиль</h3>
-                    <form class="form" name="edit-profile" novalidate>
-                        <input class="form__input form__input_type_name" type="text" name="name" id="name-input" required minlength="2" maxlength="40">
-                        <span class="form__error name-input-error"></span>
-                        <input class="form__input form__input_type_occupation" type="text" name="occupation" id="occupation-input" required minlength="2" maxlength="200">
-                        <span class="form__error occupation-input-error"></span>
+                    <form class="form form_type_edit" name="edit-profile" novalidate>
+                        <input class="form__input form__input_edit form__input_type_name" type="text" name="name" id="name-input" required minlength="2" maxlength="40">
+                        <span class="form__error form__error_type_edit name-input-error"></span>
+                        <input class="form__input form__input_edit form__input_type_occupation" type="text" name="occupation" id="occupation-input" required minlength="2" maxlength="200">
+                        <span class="form__error form__error_type_edit occupation-input-error"></span>
                         <button class="form__button" type="submit">Сохранить</button>
                     </form>
                 </div>
@@ -51,10 +51,10 @@
                     <button class="popup__close-button popup__close-button_type_add" type="button" aria-label="Закрыть"></button>
                     <h3 class="popup__title">Новое место</h3>
                     <form class="form form_type_add" name="add-card" novalidate>
-                        <input class="form__input form__input_type_title" type="text" placeholder="Название" name="title" id="title-input" required minlength="2" maxlength="30">
-                        <span class="form__error title-input-error"></span>
-                        <input class="form__input form__input_type_link" type="url" placeholder="Ссылка на картинку" name="link" id="link-input" required>
-                        <span class="form__error link-input-error"></span>
+                        <input class="form__input form__input_add form__input_type_title" type="text" placeholder="Название" name="title" id="title-input" required minlength="2" maxlength="30">
+                        <span class="form__error form__error_type_add title-input-error"></span>
+                        <input class="form__input form__input_add form__input_type_link" type="url" placeholder="Ссылка на картинку" name="link" id="link-input" required>
+                        <span class="form__error form__error_type_add link-input-error"></span>
                         <button class="form__button" type="submit">Создать</button>
                     </form>
                 </div>
@@ -77,7 +77,8 @@
             <button class="card__delete-button" type="button" aria-label="Удалить"></button>
         </article>
     </template>
-<script src="./scripts/index.js"></script>
-<script src="./scripts/validate.js"></script>
+<script type="module" src="./scripts/index.js"></script>
+<script type="module" src="scripts/Card.js"></script>
+<script type="module" src="scripts/FormValidator.js"></script>
 </body>
 </html>
