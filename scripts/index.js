@@ -1,5 +1,6 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
+import initialCards from "./initialCards.js";
 
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
@@ -20,16 +21,6 @@ const profileOccupation = document.querySelector('.profile__occupation');
 const inputOccupation = document.querySelector('.form__input_type_occupation');
 
 const popupPic = document.querySelector('.popup_type_picture');
-const popupImg = document.querySelector('.popup__image');
-const popupCaption = document.querySelector('.popup__figcaption');
-const popupCloseButtonPic = document.querySelector('.popup__close-button_type_pic');
-
-const errorsEdit = Array.from(formEdit.querySelectorAll('.form__error_type_edit'));
-const inputsEdit = Array.from(formEdit.querySelectorAll('.form__input_edit'));
-const editPopupSubmitButton = formEdit.querySelector('.form__button');
-const errorsAdd = Array.from(formAdd.querySelectorAll('.form__error_type_add'));
-const inputsAdd = Array.from(formAdd.querySelectorAll('.form__input_add'));
-const addPopupSubmitButton = formAdd.querySelector('.form__button');
 
 const cardsSection = document.querySelector('.cards');
 
@@ -47,17 +38,7 @@ editButton.addEventListener('click', (event) => {
     openPopup(popupEdit);
     inputName.value = profileName.textContent;
     inputOccupation.value = profileOccupation.textContent;
-
-    errorsEdit.forEach(function (error) {
-        error.textContent = '';
-    })
-
-    inputsEdit.forEach(function (input) {
-        input.classList.remove('form__input_type_error');
-    })
-
-    editPopupSubmitButton.removeAttribute('disabled');
-    editPopupSubmitButton.classList.remove('form__button_disabled');
+    formEditValidator.resetForm();
     });
 
 popupCloseButtonEdit.addEventListener('click', (event) => {
@@ -68,18 +49,8 @@ popupCloseButtonEdit.addEventListener('click', (event) => {
 
 addButton.addEventListener('click', (event) => {
     openPopup(popupAdd);
-
-    errorsAdd.forEach(function (error) {
-        error.textContent = '';
-    });
-
-    inputsAdd.forEach(function (input) {
-        input.classList.remove('form__input_type_error');
-    });
     formAdd.reset();
-
-    addPopupSubmitButton.classList.add('form__button_disabled')
-    addPopupSubmitButton.setAttribute('disabled', true);
+    formAddValidator.resetForm();
 }); 
 
 popupCloseButtonAdd.addEventListener('click', (event) => {
@@ -101,47 +72,20 @@ function overlayClickHandler (event){
         }
     }
 
-function submitForm(event) {
+function submitEditProfileForm(event) {
     event.preventDefault()
     profileName.textContent = inputName.value;
     profileOccupation.textContent = inputOccupation.value;
     closePopup(popupEdit);
 }
-formEdit.addEventListener('submit', submitForm);
+formEdit.addEventListener('submit', submitEditProfileForm);
 
 
 // добавление карточек
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
-
 initialCards.forEach(addCard);
 
 function addCard(item) {
-    const card = new Card(item, '.template');
+    const card = new Card(item, '.template', openPopup, closePopup);
     const cardElement = card.generateCard();
 
     cardsSection.prepend(cardElement);
@@ -181,8 +125,8 @@ const validationConfig = {
     errorClass: 'form__error_visible'
 }
 
-const FormEditValidator = new FormValidator(validationConfig, formEdit);
-FormEditValidator.enableValidation();
+const formEditValidator = new FormValidator(validationConfig, formEdit);
+formEditValidator.enableValidation();
 
-const FormAddValidator = new FormValidator(validationConfig, formAdd);
-FormAddValidator.enableValidation();
+const formAddValidator = new FormValidator(validationConfig, formAdd);
+formAddValidator.enableValidation();
