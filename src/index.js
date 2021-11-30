@@ -1,6 +1,7 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import initialCards from "./initialCards.js";
+import Section from "./Section.js";
 
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
@@ -82,14 +83,26 @@ formEdit.addEventListener('submit', submitEditProfileForm);
 
 
 // добавление карточек
-initialCards.forEach(addCard);
-
+// initialCards.forEach(addCard);
+//
 function addCard(item) {
     const card = new Card(item, '.template', openPopup, closePopup);
     const cardElement = card.generateCard();
 
     cardsSection.prepend(cardElement);
 }
+
+const initialCardsList = new Section({
+    items: initialCards,
+    renderer: (item) => {
+        const card = new Card(item, '.template', openPopup, closePopup);
+        const cardElement = card.generateCard();
+        initialCardsList.addItem(cardElement);
+    }},
+    '.cards');
+
+initialCardsList.renderItems();
+
 
 function addCardSubmit(event) {
   event.preventDefault();
