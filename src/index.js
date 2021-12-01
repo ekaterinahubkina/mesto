@@ -2,9 +2,10 @@ import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import initialCards from "./initialCards.js";
 import Section from "./Section.js";
+import Popup from "./Popup.js";
 
 const popupEdit = document.querySelector('.popup_type_edit');
-const popupAdd = document.querySelector('.popup_type_add');
+//const popupAdd = document.querySelector('.popup_type_add');
 const popupCloseButtonEdit = document.querySelector('.popup__close-button_type_edit');
 const popupCloseButtonAdd = document.querySelector('.popup__close-button_type_add');
 const editButton = document.querySelector('.profile__edit-button');
@@ -25,15 +26,18 @@ const popupPic = document.querySelector('.popup_type_picture');
 
 const cardsSection = document.querySelector('.cards');
 
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
-    document.addEventListener('keydown', keyEscHandler);
-}
+// function openPopup(popup) {
+//     popup.classList.add('popup_opened');
+//     document.addEventListener('keydown', keyEscHandler);
+// }
+//
+// function closePopup(popup) {
+//     popup.classList.remove('popup_opened');
+//     document.removeEventListener('keydown', keyEscHandler);
+//    }
 
-function closePopup(popup) {
-    popup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', keyEscHandler);
-   }
+const popupAdd = new Popup('.popup_type_add');
+popupAdd.setEventListeners();
 
 editButton.addEventListener('click', (event) => {
     openPopup(popupEdit);
@@ -49,7 +53,8 @@ popupCloseButtonEdit.addEventListener('click', (event) => {
 });
 
 addButton.addEventListener('click', (event) => {
-    openPopup(popupAdd);
+    popupAdd.open();
+    // openPopup(popupAdd);
     formAdd.reset();
     formAddValidator.resetForm();
 }); 
@@ -59,12 +64,12 @@ popupCloseButtonAdd.addEventListener('click', (event) => {
 });
 
 // функция закрытия попапа по нажатиюна esc
-export function keyEscHandler (event){
-    if(event.key === 'Escape'){
-        const popupOpened = document.querySelector('.popup_opened');
-        closePopup(popupOpened);
-    }
-}
+// export function keyEscHandler (event){
+//     if(event.key === 'Escape'){
+//         const popupOpened = document.querySelector('.popup_opened');
+//         closePopup(popupOpened);
+//     }
+// }
 
 // функция закрытия попапа нажатием на оверлей
 function overlayClickHandler (event){
