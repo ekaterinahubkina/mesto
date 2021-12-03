@@ -1,11 +1,11 @@
 import { popupPic, popupImg, popupCaption,popupCloseButtonPic } from "./constants.js";
 class Card {
-    constructor(data, selector, openPopup, closePopup) {
+    constructor(data, selector) {
         this._name = data.name;
         this._image = data.link;
         this._selector = selector;
-        this._openPopup = openPopup;
-        this._closePopup = closePopup;
+        // this._openPopup = openPopup;
+        // this._closePopup = closePopup;
 }
 _getTemplate() {
         const cardElement = document
@@ -54,18 +54,18 @@ _setEventListeners() {
 _handleLikeButtonClick() {
         this._element.querySelector('.card__like-button').classList.toggle('card__like-button_active');
 }
-
-_handleOpenPopup() {
-        this._openPopup(popupPic);
-        popupImg.src = this._image;
-        popupCaption.textContent = this._name;
-}
-
-_handleClosePopup() {
-        this._closePopup(popupPic);
-        popupImg.scr = '';
-        popupCaption.textContent = '';
-}
+//
+// _handleOpenPopup() {
+//         this._openPopup(popupPic);
+//         popupImg.src = this._image;
+//         popupCaption.textContent = this._name;
+// }
+//
+// _handleClosePopup() {
+//         this._closePopup(popupPic);
+//         popupImg.scr = '';
+//         popupCaption.textContent = '';
+//}
 
 }
 
