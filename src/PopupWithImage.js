@@ -2,22 +2,15 @@ import Popup from "./Popup.js";
 import { popupImg, popupCaption } from "./constants.js";
 
 class PopupWithImage extends Popup{
-    constructor(data, popupSelector) {
+    constructor(popupSelector) {
         super(popupSelector);
-        this._data = data;
-        // this._name = data.name;
-        // this._image = data.link;
-
     }
 
-    open = () => {
+    open(data) {
         super.open();
-        // this._data.forEach((item) => {
-        //     popupImg.src = item.link;
-        //     popupCaption.textContent = item.name;
-        // })
-        popupImg.src = this._data.link;
-        popupCaption.textContent = this._data.name;
+        popupImg.src = data.link;
+        popupImg.alt = data.name;
+        popupCaption.textContent = data.name;
     }
 }
 

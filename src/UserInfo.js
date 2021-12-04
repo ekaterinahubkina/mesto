@@ -10,14 +10,11 @@ class UserInfo {
         this._userInfo.occupation = this._userOccupation.textContent;
 
         return this._userInfo;
-
     }
 
     setUserInfo(data) {
         this._userName.textContent = data.name;
         this._userOccupation.textContent = data.occupation;
     }
-
 }
-
 export default UserInfo;
