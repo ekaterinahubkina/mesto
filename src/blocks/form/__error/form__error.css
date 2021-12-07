@@ -3,7 +3,7 @@
     font-weight: normal;
     font-size: 12px;
     line-height: 15px;
-    margin: 0;
+    margin: 0 0 5px;
     visibility: hidden;
-    min-height: 12px;
+    min-height: 30px;
 }
