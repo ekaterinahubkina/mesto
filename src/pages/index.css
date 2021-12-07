@@ -7,7 +7,6 @@
 @import url(../blocks/logo/logo.css);
 @import url(../blocks/logo/__image/logo__image.css);
 
-@import url(../blocks/content/content.css);
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
 @import url(../blocks/profile/__info/profile__info.css);
@@ -45,4 +44,3 @@
 @import url(../blocks/popup/__figure/popup__figure.css);
 @import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__figcaption/popup__figcaption.css);
-@import url(../blocks/popup/_transition/popup_transition.css);
