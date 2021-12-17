@@ -6,13 +6,14 @@ import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import { editButton, addButton, formEdit, formAdd, inputName, inputOccupation } from "../utils/constants.js";
+import { editButton, addButton, formEdit, formAdd, inputName, inputOccupation, userName, userOccupation } from "../utils/constants.js";
 
 function createCard(item) {
     const card = new Card(item, '.template', handleCardClick);
     const cardElement = card.generateCard();
     return cardElement;
 }
+
 const initialCardsList = new Section({
     items: initialCards,
     renderer: (item) => {
@@ -37,6 +38,21 @@ addButton.addEventListener('click', () => {
     formAddValidator.resetForm();
 });
 
+function setInitialUserInfo() {
+    fetch('https://mesto.nomoreparties.co/v1/cohort-32/users/me', {
+        headers: {
+            authorization: '76c1c471-2766-4a3c-9dbb-2acf0a9ae808'
+        }
+    })
+        .then(res => res.json())
+        .then((result) => {
+            console.log(result);
+            userName.textContent = result.name;
+            userOccupation.textContent = result.about;
+        });
+}
+setInitialUserInfo();
+
 const userInfo = new UserInfo({
     nameSelector: '.profile__name',
     occupationSelector: '.profile__occupation'
@@ -50,7 +66,7 @@ const popupEdit = new PopupWithForm({
 });
 popupEdit.setEventListeners();
 
-editButton.addEventListener('click', (event) => {
+editButton.addEventListener('click', () => {
     inputName.value = userInfo.getUserInfo().name;
     inputOccupation.value = userInfo.getUserInfo().occupation;
     formEditValidator.resetForm();

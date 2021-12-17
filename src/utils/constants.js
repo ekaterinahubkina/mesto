@@ -12,3 +12,6 @@ export const formEdit = document.querySelector('.form_type_edit');
 export const inputName = document.querySelector('.form__input_type_name');
 export const inputOccupation = document.querySelector('.form__input_type_occupation');
 
+export const userName = document.querySelector('.profile__name');
+export const userOccupation = document.querySelector('.profile__occupation');
+
