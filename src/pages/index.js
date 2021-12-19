@@ -25,7 +25,7 @@ api.getUserData()
 
 api.getCards()
     .then(res => {
-        initialCardsList.renderItems(res)
+        initialCardsList.renderItems(res);
     })
     .catch(error => {
         console.log(error)
@@ -50,12 +50,13 @@ const popupAdd = new PopupWithForm({
     handleFormSubmit: (formData) => {
         api.addNewCard(formData)
             .then(res => {
-                console.log(res)
+                console.log(res);
+                initialCardsList.addItem(createCard(res))
             })
             .catch(error => {
                 console.log(error)
             })
-        initialCardsList.addItem(createCard(formData));
+       // initialCardsList.addItem(createCard(formData));
     }
 });
 popupAdd.setEventListeners();
@@ -88,7 +89,16 @@ const userInfo = new UserInfo({
 const popupEdit = new PopupWithForm({
     popupSelector: '.popup_type_edit',
     handleFormSubmit: (formData) => {
-        userInfo.setUserInfo(formData);
+        console.log(formData);
+        api.editUserData(formData)
+            .then(res => {
+                console.log(res);
+                userInfo.setUserInfo(res)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+       // userInfo.setUserInfo(formData);
     }
 });
 popupEdit.setEventListeners();
@@ -104,6 +114,7 @@ const popupWithImage = new PopupWithImage('.popup_type_picture');
 popupWithImage.setEventListeners();
 
 function handleCardClick(cardData) {
+    console.log(cardData);
     popupWithImage.open(cardData);
 }
 
