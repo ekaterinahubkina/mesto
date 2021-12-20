@@ -1,11 +1,11 @@
 import "./index.css";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
-import initialCards from "../utils/initialCards.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupConfirm from "../components/PopupConfirm.js";
 import Api from "../components/Api.js";
 import { editButton, addButton, formEdit, formAdd, inputName, inputOccupation, userName, userOccupation } from "../utils/constants.js";
 
@@ -32,8 +32,23 @@ api.getCards()
     })
 
 function createCard(item) {
-    const card = new Card(item, '.template', handleCardClick);
+    const card = new Card(item, '.template', handleCardClick, {
+        handleDeleteButtonClick: () => {
+            const popupConfirm = new PopupConfirm({
+                popupSelector: '.popup_type_confirm',
+                handleFormSubmit: () => {
+                    card.deleteCard();
+                }
+            });
+            popupConfirm.open();
+            popupConfirm.setEventListeners();
+        } });
     const cardElement = card.generateCard();
+
+    if (item.owner._id !== '6bb60632fcf5ef9219847aa4') {
+        card.removeDeleteButton()
+    }
+
     return cardElement;
 }
 
@@ -117,6 +132,42 @@ function handleCardClick(cardData) {
     console.log(cardData);
     popupWithImage.open(cardData);
 }
+
+// function handleDeleteButtonClick() {
+//     const popupConfirm = new PopupConfirm({
+//         popupSelector: '.popup_type_confirm',
+//         handleFormSubmit: (card) => {
+//
+//
+//             // api.deleteCard()
+//             //     .then(res => {
+//             //         console.log(res)
+//             //     })
+//             //     .catch(err => {
+//             //         console.log(err)
+//             //     })
+//         }
+//     })
+//     popupConfirm.setEventListeners();
+//     popupConfirm.open();
+// }
+
+// const popupConfirm = new PopupConfirm({
+//     popupSelector: '.popup_type_confirm',
+//     handleFormSubmit: (card) => {
+//         card.deleteCard();
+//
+//
+//         // api.deleteCard()
+//         //     .then(res => {
+//         //         console.log(res)
+//         //     })
+//         //     .catch(err => {
+//         //         console.log(err)
+//         //     })
+//     }
+// })
+// popupConfirm.setEventListeners();
 
 //валидация
 const validationConfig = {

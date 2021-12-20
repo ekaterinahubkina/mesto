@@ -77,6 +77,23 @@ class Api{
             })
     }
 
+    // //deleteCard(cardId) {
+    //     return fetch(`${this.url}/cards/${cardId}`, {
+    //         method: 'DELETE',
+    //         headers: {
+    //             authorization: this.token,
+    //             'Content-Type': 'application/json'
+    //         }
+    //     })
+    //         .then(res => {
+    //             if (res.ok) {
+    //                 return res.json();
+    //             } else {
+    //                 return Promise.reject(`Ошибка при удалении карточки: ${res.status}`);
+    //             }
+    //         })
+    // }
+
 
 }
 

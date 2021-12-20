@@ -1,10 +1,12 @@
 class Card {
-    constructor(data, selector, handleCardClick) {
+    constructor(data, selector, handleCardClick, { handleDeleteButtonClick }) {
         this._name = data.name;
         this._image = data.link;
         this._likesNumber = data.likes.length;
+        this._cardId = data._id;
         this._selector = selector;
         this._handleCardClick = handleCardClick;
+        this._handleDeleteButtonClick = handleDeleteButtonClick;
 }
 
 _getTemplate() {
@@ -36,7 +38,7 @@ _setEventListeners() {
 
         const cardDeleteButton = this._element.querySelector('.card__delete-button');
         cardDeleteButton.addEventListener('click', () => {
-            this._deleteCard();
+            this._handleDeleteButtonClick(this._element);
         });
 
         const cardLikeButton = this._element.querySelector('.card__like-button');
@@ -51,10 +53,13 @@ _setEventListeners() {
 _handleLikeButtonClick() {
         this._element.querySelector('.card__like-button').classList.toggle('card__like-button_active');
 }
-
-_deleteCard() {
+deleteCard() {
         this._element.remove();
         this._element = null;
+}
+
+removeDeleteButton() {
+    this._element.querySelector('.card__delete-button').remove();
 }
 
 }
