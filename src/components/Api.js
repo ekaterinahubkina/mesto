@@ -77,23 +77,57 @@ class Api{
             })
     }
 
-    // //deleteCard(cardId) {
-    //     return fetch(`${this.url}/cards/${cardId}`, {
-    //         method: 'DELETE',
-    //         headers: {
-    //             authorization: this.token,
-    //             'Content-Type': 'application/json'
-    //         }
-    //     })
-    //         .then(res => {
-    //             if (res.ok) {
-    //                 return res.json();
-    //             } else {
-    //                 return Promise.reject(`Ошибка при удалении карточки: ${res.status}`);
-    //             }
-    //         })
-    // }
+    deleteMyCard(data) {
+        return fetch(`${this.url}/cards/${data._id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this.token,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    return Promise.reject(`Ошибка при удалении карточки: ${res.status}`);
+                }
+            })
+    }
 
+    putLike(data) {
+        return fetch(`${this.url}/cards/${data._id}/likes`, {
+            method: 'PUT',
+            headers: {
+                authorization: this.token,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    return Promise.reject(`Ошибка при добавлении лайка: ${res.status}`);
+                }
+            })
+
+    }
+
+    deleteLike(data) {
+        return fetch(`${this.url}/cards/${data._id}/likes`, {
+            method: 'DELETE',
+            headers: {
+                authorization: this.token,
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    return Promise.reject(`Ошибка при удалении лайка: ${res.status}`);
+                }
+            })
+    }
 
 }
 

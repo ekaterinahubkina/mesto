@@ -31,26 +31,64 @@ api.getCards()
         console.log(error)
     })
 
-function createCard(item) {
+function createCard(item){
     const card = new Card(item, '.template', handleCardClick, {
+
+        handleCardLike: () => {
+        console.log(item);
+        if (!item.likes.some(like => like['_id'] === '6bb60632fcf5ef9219847aa4')) {
+            api.putLike(item)
+                .then(res => {
+                    console.log(res);
+                    card.updateCardLikes(res);
+                    item = res;
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        } else {
+            api.deleteLike(item)
+                .then(res => {
+                    console.log(res);
+                    card.updateCardLikes(res);
+                    item = res;
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+        },
+        // обработка удаления карточки
         handleDeleteButtonClick: () => {
             const popupConfirm = new PopupConfirm({
                 popupSelector: '.popup_type_confirm',
                 handleFormSubmit: () => {
-                    card.deleteCard();
-                }
+                    api.deleteMyCard(item)
+                        .then(res => {
+                            console.log(res);
+                            card.deleteCard();
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                        }
             });
             popupConfirm.open();
             popupConfirm.setEventListeners();
         } });
+
     const cardElement = card.generateCard();
 
     if (item.owner._id !== '6bb60632fcf5ef9219847aa4') {
         card.removeDeleteButton()
     }
+    if (item.likes.some(like => like['_id'] === '6bb60632fcf5ef9219847aa4')) {
+        card.activateLikeButton()
+    }
 
     return cardElement;
 }
+
 
 const initialCardsList = new Section({
     renderer: (item) => {
@@ -71,7 +109,6 @@ const popupAdd = new PopupWithForm({
             .catch(error => {
                 console.log(error)
             })
-       // initialCardsList.addItem(createCard(formData));
     }
 });
 popupAdd.setEventListeners();
@@ -81,25 +118,12 @@ addButton.addEventListener('click', () => {
     formAddValidator.resetForm();
 });
 
-// function setInitialUserInfo() {
-//     fetch('https://mesto.nomoreparties.co/v1/cohort-32/users/me', {
-//         headers: {
-//             authorization: '76c1c471-2766-4a3c-9dbb-2acf0a9ae808'
-//         }
-//     })
-//         .then(res => res.json())
-//         .then((result) => {
-//             console.log(result);
-//             userName.textContent = result.name;
-//             userOccupation.textContent = result.about;
-//         });
-// }
-// setInitialUserInfo();
-
 const userInfo = new UserInfo({
     nameSelector: '.profile__name',
-    occupationSelector: '.profile__occupation'
+    occupationSelector: '.profile__occupation',
+    avatarContainerSelector: '.profile__avatar-container'
 });
+userInfo.displayEditAvatarIcon();
 
 const popupEdit = new PopupWithForm({
     popupSelector: '.popup_type_edit',
@@ -113,7 +137,6 @@ const popupEdit = new PopupWithForm({
             .catch(error => {
                 console.log(error)
             })
-       // userInfo.setUserInfo(formData);
     }
 });
 popupEdit.setEventListeners();
@@ -132,42 +155,6 @@ function handleCardClick(cardData) {
     console.log(cardData);
     popupWithImage.open(cardData);
 }
-
-// function handleDeleteButtonClick() {
-//     const popupConfirm = new PopupConfirm({
-//         popupSelector: '.popup_type_confirm',
-//         handleFormSubmit: (card) => {
-//
-//
-//             // api.deleteCard()
-//             //     .then(res => {
-//             //         console.log(res)
-//             //     })
-//             //     .catch(err => {
-//             //         console.log(err)
-//             //     })
-//         }
-//     })
-//     popupConfirm.setEventListeners();
-//     popupConfirm.open();
-// }
-
-// const popupConfirm = new PopupConfirm({
-//     popupSelector: '.popup_type_confirm',
-//     handleFormSubmit: (card) => {
-//         card.deleteCard();
-//
-//
-//         // api.deleteCard()
-//         //     .then(res => {
-//         //         console.log(res)
-//         //     })
-//         //     .catch(err => {
-//         //         console.log(err)
-//         //     })
-//     }
-// })
-// popupConfirm.setEventListeners();
 
 //валидация
 const validationConfig = {

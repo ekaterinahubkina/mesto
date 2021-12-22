@@ -16,7 +16,10 @@
         <main class="content">
             <section class="profile">
                 <div class="profile__main-info">
-                    <img class="profile__avatar" src="<%=require('./images/Avatar.png')%>" alt="Аватар">
+                    <div class="profile__avatar-container">
+                        <img class="profile__avatar" src="<%=require('./images/Avatar.png')%>" alt="Аватар">
+                        <div class="profile__avatar-hover"></div>
+                    </div>
                     <div class="profile__info">
                         <h1 class="profile__name"></h1>
                         <p class="profile__occupation"></p>
