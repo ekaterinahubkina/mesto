@@ -3,7 +3,6 @@ class Card {
         this._name = data.name;
         this._image = data.link;
         this._likesNumber = data.likes.length;
-        this._cardId = data._id;
         this._selector = selector;
         this._handleCardClick = handleCardClick;
         this._handleDeleteButtonClick = handleDeleteButtonClick;

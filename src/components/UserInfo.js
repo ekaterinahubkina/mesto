@@ -20,7 +20,7 @@ class UserInfo {
     }
 
     setNewAvatar(data) {
-        this._avatar.src = data.link;
+        this._avatar.src = data.avatar;
     }
 
     displayEditAvatarIcon() {

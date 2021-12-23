@@ -37,11 +37,9 @@ function createCard(item){
     const card = new Card(item, '.template', handleCardClick, {
 
         handleCardLike: () => {
-        console.log(item);
         if (!item.likes.some(like => like['_id'] === '6bb60632fcf5ef9219847aa4')) {
             api.putLike(item)
                 .then(res => {
-                    console.log(res);
                     card.updateCardLikes(res);
                     item = res;
                 })
@@ -51,7 +49,6 @@ function createCard(item){
         } else {
             api.deleteLike(item)
                 .then(res => {
-                    console.log(res);
                     card.updateCardLikes(res);
                     item = res;
                 })
@@ -98,15 +95,12 @@ const initialCardsList = new Section({
     }},
     '.cards');
 
-//initialCardsList.renderItems();
-
 const popupAdd = new PopupWithForm({
     popupSelector: '.popup_type_add',
     handleFormSubmit: (formData) => {
         popupAdd.renderLoading(true);
         api.addNewCard(formData)
             .then(res => {
-                console.log(res);
                 initialCardsList.addItem(createCard(res))
             })
             .catch(error => {
@@ -134,11 +128,9 @@ userInfo.displayEditAvatarIcon();
 const popupEdit = new PopupWithForm({
     popupSelector: '.popup_type_edit',
     handleFormSubmit: (formData) => {
-        console.log(formData);
         popupEdit.renderLoading(true);
         api.editUserData(formData)
             .then(res => {
-                console.log(res);
                 userInfo.setUserInfo(res)
             })
             .catch(error => {
@@ -161,12 +153,10 @@ editButton.addEventListener('click', () => {
 const popupAvatar = new PopupWithForm({
     popupSelector: '.popup_type_avatar',
     handleFormSubmit: (formData) => {
-        console.log(formData);
         popupAvatar.renderLoading(true);
         api.editUserAvatar(formData)
             .then(res => {
-                console.log(res);
-                userInfo.setNewAvatar(formData);
+                userInfo.setNewAvatar(res);
             })
             .catch(error => {
                 console.log(error)
