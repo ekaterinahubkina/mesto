@@ -129,6 +129,26 @@ class Api{
             })
     }
 
+    editUserAvatar(data) {
+        return fetch(`${this.url}/users/me/avatar`, {
+            method: 'PATCH',
+            headers: {
+                authorization: this.token,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                avatar: data.link
+            })
+        })
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    return Promise.reject(`Ошибка при обновлении аватара: ${res.status}`);
+                }
+            })
+    }
+
 }
 
 export default Api

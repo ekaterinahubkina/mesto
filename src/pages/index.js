@@ -7,7 +7,8 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupConfirm from "../components/PopupConfirm.js";
 import Api from "../components/Api.js";
-import { editButton, addButton, formEdit, formAdd, inputName, inputOccupation, userName, userOccupation } from "../utils/constants.js";
+import { editButton, addButton, formEdit, formAdd, inputName, inputOccupation,
+    userName, userOccupation, avatarEditIcon, formAvatarEdit, userAvatar } from "../utils/constants.js";
 
 const api = new Api({
     url: 'https://mesto.nomoreparties.co/v1/cohort-32',
@@ -18,6 +19,7 @@ api.getUserData()
     .then(data => {
         userName.textContent = data.name;
         userOccupation.textContent = data.about;
+        userAvatar.src = data.avatar;
     })
     .catch(error => {
         console.log(error)
@@ -25,7 +27,7 @@ api.getUserData()
 
 api.getCards()
     .then(res => {
-        initialCardsList.renderItems(res);
+        initialCardsList.renderItems(res.reverse());
     })
     .catch(error => {
         console.log(error)
@@ -101,6 +103,7 @@ const initialCardsList = new Section({
 const popupAdd = new PopupWithForm({
     popupSelector: '.popup_type_add',
     handleFormSubmit: (formData) => {
+        popupAdd.renderLoading(true);
         api.addNewCard(formData)
             .then(res => {
                 console.log(res);
@@ -108,6 +111,9 @@ const popupAdd = new PopupWithForm({
             })
             .catch(error => {
                 console.log(error)
+            })
+            .finally(() => {
+                popupAdd.renderLoading(false);
             })
     }
 });
@@ -129,6 +135,7 @@ const popupEdit = new PopupWithForm({
     popupSelector: '.popup_type_edit',
     handleFormSubmit: (formData) => {
         console.log(formData);
+        popupEdit.renderLoading(true);
         api.editUserData(formData)
             .then(res => {
                 console.log(res);
@@ -136,6 +143,9 @@ const popupEdit = new PopupWithForm({
             })
             .catch(error => {
                 console.log(error)
+            })
+            .finally(() => {
+                popupEdit.renderLoading(false);
             })
     }
 });
@@ -147,6 +157,31 @@ editButton.addEventListener('click', () => {
     formEditValidator.resetForm();
     popupEdit.open();
 });
+
+const popupAvatar = new PopupWithForm({
+    popupSelector: '.popup_type_avatar',
+    handleFormSubmit: (formData) => {
+        console.log(formData);
+        popupAvatar.renderLoading(true);
+        api.editUserAvatar(formData)
+            .then(res => {
+                console.log(res);
+                userInfo.setNewAvatar(formData);
+            })
+            .catch(error => {
+                console.log(error)
+            })
+            .finally(() => {
+                popupAvatar.renderLoading(false);
+            })
+    }
+});
+popupAvatar.setEventListeners();
+
+avatarEditIcon.addEventListener('click', () => {
+    formAvatarEditValidator.resetForm();
+    popupAvatar.open();
+})
 
 const popupWithImage = new PopupWithImage('.popup_type_picture');
 popupWithImage.setEventListeners();
@@ -171,3 +206,6 @@ formEditValidator.enableValidation();
 
 const formAddValidator = new FormValidator(validationConfig, formAdd);
 formAddValidator.enableValidation();
+
+const formAvatarEditValidator = new FormValidator(validationConfig, formAvatarEdit);
+formAvatarEditValidator.enableValidation();

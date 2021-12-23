@@ -17,7 +17,7 @@
             <section class="profile">
                 <div class="profile__main-info">
                     <div class="profile__avatar-container">
-                        <img class="profile__avatar" src="<%=require('./images/Avatar.png')%>" alt="Аватар">
+                        <img class="profile__avatar" src="" alt="Аватар">
                         <div class="profile__avatar-hover"></div>
                     </div>
                     <div class="profile__info">
@@ -79,6 +79,17 @@
                     </form>
                 </div>
             </article>
+            <article class="popup popup_type_avatar">
+                <div class="popup__container popup__container_type_avatar">
+                    <button class="popup__close-button popup__close-button_type_avatar" type="button" aria-label="Закрыть"></button>
+                    <h3 class="popup__title">Обновить автар</h3>
+                    <form class="form form_type_avatar" name="add-card" novalidate>
+                        <input class="form__input form__input_add form__input_type_link" type="url" placeholder="Ссылка на аватар" name="link" id="avatar-link-input" required>
+                        <span class="form__error form__error_type_avatar avatar-link-input-error"></span>
+                        <button class="form__button" type="submit">Сохранить</button>
+                    </form>
+                </div>
+            </article>
     </div>
     <template class="template">
         <article class="card">
@@ -86,7 +97,7 @@
             <h2 class="card__title"></h2>
             <div class="card__likes-wrapper">
                 <button class="card__like-button" type="button" aria-label="Нравится"></button>
-                <div class="card__likes-number">1</div>
+                <div class="card__likes-number"></div>
             </div>
             <button class="card__delete-button" type="button" aria-label="Удалить"></button>
         </article>

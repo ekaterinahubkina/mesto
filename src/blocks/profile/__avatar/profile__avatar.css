@@ -3,6 +3,7 @@
     width: 120px;
     object-fit: cover;
     position: relative;
+    border-radius: 50%;
 }
 /*.profile__avatar::after {*/
 /*    content: "";*/

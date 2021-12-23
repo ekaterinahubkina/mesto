@@ -15,3 +15,7 @@ export const inputOccupation = document.querySelector('.form__input_type_occupat
 export const userName = document.querySelector('.profile__name');
 export const userOccupation = document.querySelector('.profile__occupation');
 
+export const avatarEditIcon = document.querySelector('.profile__avatar-hover');
+export const formAvatarEdit = document.querySelector('.form_type_avatar');
+export const userAvatar = document.querySelector('.profile__avatar');
+

@@ -3,7 +3,7 @@ class UserInfo {
         this._userName = document.querySelector(nameSelector);
         this._userOccupation = document.querySelector(occupationSelector);
         this._avatarContainer = document.querySelector(avatarContainerSelector);
-        // this._avatar = this._avatarContainer.querySelector('.profile__avatar');
+        this._avatar = this._avatarContainer.querySelector('.profile__avatar');
         this._avatarHover = this._avatarContainer.querySelector('.profile__avatar-hover');
     }
 
@@ -19,9 +19,9 @@ class UserInfo {
         this._userOccupation.textContent = data.about;
     }
 
-    // editAvatar(data) {
-    //     this._avatar.src = data.avatar;
-    // }
+    setNewAvatar(data) {
+        this._avatar.src = data.link;
+    }
 
     displayEditAvatarIcon() {
 
