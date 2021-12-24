@@ -7,8 +7,7 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupConfirm from "../components/PopupConfirm.js";
 import Api from "../components/Api.js";
-import { editButton, addButton, formEdit, formAdd, inputName, inputOccupation,
-    userName, userOccupation, avatarEditIcon, formAvatarEdit, userAvatar } from "../utils/constants.js";
+import { editButton, addButton, formEdit, formAdd, inputName, inputOccupation, avatarEditIcon, formAvatarEdit } from "../utils/constants.js";
 
 const api = new Api({
     url: 'https://mesto.nomoreparties.co/v1/cohort-32',
@@ -17,9 +16,10 @@ const api = new Api({
 
 api.getUserData()
     .then(data => {
-        userName.textContent = data.name;
-        userOccupation.textContent = data.about;
-        userAvatar.src = data.avatar;
+        userInfo.setUserInfo(data);
+        userInfo.setNewAvatar(data);
+        const userId = userInfo.getUserId(data);
+        console.log(userId);
     })
     .catch(error => {
         console.log(error)
@@ -27,6 +27,7 @@ api.getUserData()
 
 api.getCards()
     .then(res => {
+        console.log(res);
         initialCardsList.renderItems(res.reverse());
     })
     .catch(error => {
@@ -37,9 +38,12 @@ function createCard(item){
     const card = new Card(item, '.template', handleCardClick, {
 
         handleCardLike: () => {
+            console.log(item)
         if (!item.likes.some(like => like['_id'] === '6bb60632fcf5ef9219847aa4')) {
             api.putLike(item)
                 .then(res => {
+                    console.log(res)
+                    card.handleLikeButtonClick();
                     card.updateCardLikes(res);
                     item = res;
                 })
@@ -51,6 +55,7 @@ function createCard(item){
                 .then(res => {
                     card.updateCardLikes(res);
                     item = res;
+                    card.handleLikeButtonClick();
                 })
                 .catch(err => {
                     console.log(err)
@@ -65,6 +70,7 @@ function createCard(item){
                 api.deleteMyCard(item)
                     .then(res => {
                         console.log(res);
+                        popupConfirm.close();
                         card.deleteCard();
                     })
                     .catch(err => {
@@ -103,6 +109,7 @@ const popupAdd = new PopupWithForm({
         popupAdd.renderLoading(true);
         api.addNewCard(formData)
             .then(res => {
+                popupAdd.close();
                 initialCardsList.addItem(createCard(res))
             })
             .catch(error => {
@@ -133,6 +140,7 @@ const popupEdit = new PopupWithForm({
         popupEdit.renderLoading(true);
         api.editUserData(formData)
             .then(res => {
+                popupEdit.close();
                 userInfo.setUserInfo(res)
             })
             .catch(error => {
@@ -158,6 +166,7 @@ const popupAvatar = new PopupWithForm({
         popupAvatar.renderLoading(true);
         api.editUserAvatar(formData)
             .then(res => {
+                popupAvatar.close();
                 userInfo.setNewAvatar(res);
             })
             .catch(error => {
