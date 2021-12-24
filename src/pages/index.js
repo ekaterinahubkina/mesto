@@ -59,21 +59,18 @@ function createCard(item){
         },
         // обработка удаления карточки
         handleDeleteButtonClick: () => {
-            const popupConfirm = new PopupConfirm({
-                popupSelector: '.popup_type_confirm',
-                handleFormSubmit: () => {
-                    api.deleteMyCard(item)
-                        .then(res => {
-                            console.log(res);
-                            card.deleteCard();
-                        })
-                        .catch(err => {
-                            console.log(err)
-                        })
-                        }
-            });
+
             popupConfirm.open();
-            popupConfirm.setEventListeners();
+            popupConfirm.setSubmitAction(() => {
+                api.deleteMyCard(item)
+                    .then(res => {
+                        console.log(res);
+                        card.deleteCard();
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            })
         } });
 
     const cardElement = card.generateCard();
@@ -87,6 +84,11 @@ function createCard(item){
 
     return cardElement;
 }
+
+const popupConfirm = new PopupConfirm({
+    popupSelector: '.popup_type_confirm'
+});
+popupConfirm.setEventListeners();
 
 
 const initialCardsList = new Section({

@@ -14,7 +14,10 @@ class PopupConfirm extends Popup{
             this._handleFormSubmit();
             this.close();
         })
+    }
 
+    setSubmitAction(action) {
+        this._handleFormSubmit = action;
     }
 }
 
