@@ -4,20 +4,23 @@ class Api{
         this.token = token;
     }
 
-    getCards() {
+    _getResponseData(res) {
+        if (res.ok) {
+            console.log(res)
+            return res.json();
+        } else {
+            return Promise.reject(`Ошибка: ${res.status}`);
+        }
+
+    }
+
+    getCards = () => {
         return fetch(`${this.url}/cards`, {
             headers: {
                 authorization: this.token
             }
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                }
-
-            })
+            .then(this._getResponseData);
     }
 
     getUserData() {
@@ -26,13 +29,7 @@ class Api{
                 authorization: this.token
             }
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                }
-        })
+            .then(this._getResponseData);
     }
 
     editUserData(data) {
@@ -47,13 +44,7 @@ class Api{
                 about: data.occupation
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                }
-            })
+            .then(this._getResponseData);
     }
 
     addNewCard(data) {
@@ -68,13 +59,7 @@ class Api{
                 link: data.link
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return Promise.reject(`Ошибка при добавлении карточки: ${res.status}`);
-                }
-            })
+            .then(this._getResponseData);
     }
 
     deleteMyCard(data) {
@@ -85,13 +70,7 @@ class Api{
                 'Content-Type': 'application/json'
             }
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return Promise.reject(`Ошибка при удалении карточки: ${res.status}`);
-                }
-            })
+            .then(this._getResponseData);
     }
 
     putLike(data) {
@@ -102,13 +81,7 @@ class Api{
                 'Content-Type': 'application/json'
             }
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return Promise.reject(`Ошибка при добавлении лайка: ${res.status}`);
-                }
-            })
+            .then(this._getResponseData);
 
     }
 
@@ -120,13 +93,7 @@ class Api{
                 'Content-Type': 'application/json'
             }
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return Promise.reject(`Ошибка при удалении лайка: ${res.status}`);
-                }
-            })
+            .then(this._getResponseData);
     }
 
     editUserAvatar(data) {
@@ -140,13 +107,7 @@ class Api{
                 avatar: data.link
             })
         })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    return Promise.reject(`Ошибка при обновлении аватара: ${res.status}`);
-                }
-            })
+            .then(this._getResponseData);
     }
 
 }

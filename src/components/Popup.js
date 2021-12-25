@@ -29,7 +29,7 @@ class Popup {
         this._closeButton.addEventListener('click', () => {
             this.close();
         });
-        this._popup.addEventListener('click', this._handleOverlayClickClose);
+        this._popup.addEventListener('mousedown', this._handleOverlayClickClose);
 
     }
 }

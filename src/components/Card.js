@@ -42,16 +42,15 @@ _setEventListeners() {
 
         const cardLikeButton = this._element.querySelector('.card__like-button');
         cardLikeButton.addEventListener('click', () => {
-            this._handleLikeButtonClick();
+            this._handleCardLike(this);
         });
          this._element.querySelector('.card__image').addEventListener('click', () => {
              this._handleCardClick({name: this._name, link: this._image});
          });
 }
 
-_handleLikeButtonClick() {
+handleLikeButtonClick() {
         this._element.querySelector('.card__like-button').classList.toggle('card__like-button_active');
-        this._handleCardLike(this);
 }
 
 activateLikeButton() {

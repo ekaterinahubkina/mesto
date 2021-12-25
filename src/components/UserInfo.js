@@ -15,12 +15,24 @@ class UserInfo {
     }
 
     setUserInfo(data) {
-        this._userName.textContent = data.name;
-        this._userOccupation.textContent = data.about;
+        if (data.name) {
+            this._userName.textContent = data.name;
+        }
+        if (data.about) {
+            this._userOccupation.textContent = data.about;
+        }
+    }
+    getUserId(data) {
+        return {
+            userId: data._id
+        }
     }
 
+
     setNewAvatar(data) {
-        this._avatar.src = data.avatar;
+        if (data.avatar) {
+            this._avatar.src = data.avatar;
+        }
     }
 
     displayEditAvatarIcon() {
