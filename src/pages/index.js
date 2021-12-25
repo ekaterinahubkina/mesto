@@ -9,6 +9,8 @@ import PopupConfirm from "../components/PopupConfirm.js";
 import Api from "../components/Api.js";
 import { editButton, addButton, formEdit, formAdd, inputName, inputOccupation, avatarEditIcon, formAvatarEdit } from "../utils/constants.js";
 
+let userId;
+
 const api = new Api({
     url: 'https://mesto.nomoreparties.co/v1/cohort-32',
     token: '76c1c471-2766-4a3c-9dbb-2acf0a9ae808'
@@ -18,8 +20,7 @@ api.getUserData()
     .then(data => {
         userInfo.setUserInfo(data);
         userInfo.setNewAvatar(data);
-        const userId = userInfo.getUserId(data);
-        console.log(userId);
+        userId = userInfo.getUserId(data);
     })
     .catch(error => {
         console.log(error)
@@ -27,7 +28,6 @@ api.getUserData()
 
 api.getCards()
     .then(res => {
-        console.log(res);
         initialCardsList.renderItems(res.reverse());
     })
     .catch(error => {
@@ -38,11 +38,9 @@ function createCard(item){
     const card = new Card(item, '.template', handleCardClick, {
 
         handleCardLike: () => {
-            console.log(item)
-        if (!item.likes.some(like => like['_id'] === '6bb60632fcf5ef9219847aa4')) {
+        if (!item.likes.some(like => like['_id'] === userId.userId)) {
             api.putLike(item)
                 .then(res => {
-                    console.log(res)
                     card.handleLikeButtonClick();
                     card.updateCardLikes(res);
                     item = res;
@@ -69,7 +67,6 @@ function createCard(item){
             popupConfirm.setSubmitAction(() => {
                 api.deleteMyCard(item)
                     .then(res => {
-                        console.log(res);
                         popupConfirm.close();
                         card.deleteCard();
                     })
@@ -81,10 +78,10 @@ function createCard(item){
 
     const cardElement = card.generateCard();
 
-    if (item.owner._id !== '6bb60632fcf5ef9219847aa4') {
+    if (item.owner._id !== userId.userId) {
         card.removeDeleteButton()
     }
-    if (item.likes.some(like => like['_id'] === '6bb60632fcf5ef9219847aa4')) {
+    if (item.likes.some(like => like['_id'] === userId.userId)) {
         card.activateLikeButton()
     }
 
