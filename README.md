@@ -9,10 +9,11 @@
 * Возможность просмотра увеличенного изображения при клике на картинку на карточке.
 
 ## Используемые технологии  
-* Flex  
-* Grid layout  
+* HTML
+* CSS (Flex, Grid layout)  
 * Адаптивная и резиновая верстка
-* HTML, CSS, JavaScript
+* JavaScript (ООП, классы, модули)
+* Запросы на сервер (fetch) 
 
 ## Результат  
 [Ссылка на проект на GitHub Pages](https://ekaterinahubkina.github.io/mesto/index.html)
